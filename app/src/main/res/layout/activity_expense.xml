@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_primary"
+        >
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_back"
+            android:layout_margin="@dimen/_12sdp"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/expense"
+            android:textSize="@dimen/_16ssp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:fontFamily="@font/inter_semibold"
+            android:includeFontPadding="false"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintEnd_toStartOf="@id/ivSearch"
+            />
+
+        <ImageView
+            android:id="@+id/ivSearch"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/ic_search"
+            android:layout_margin="@dimen/_12sdp"
+            android:padding="@dimen/_4sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:id="@+id/lnSearch"
+            app:layout_constraintStart_toStartOf="@id/ivBack"
+            app:layout_constraintEnd_toEndOf="@id/ivSearch"
+            app:layout_constraintTop_toTopOf="@id/ivBack">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_input_search"
+                android:orientation="horizontal"
+                android:paddingVertical="@dimen/_10sdp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_8sdp"
+                    android:src="@drawable/ic_search"
+                    app:tint="#828282" />
+
+                <EditText
+                    android:id="@+id/edtInputSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:imeOptions="actionSearch"
+                    android:background="#F4F4F4"
+                    android:inputType="text"
+                    android:fontFamily="@font/inter_medium"
+                    android:hint="@string/search_for_my_income"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/clr_E0E0E0"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/cancel"
+                android:textColor="#828282"
+                android:textSize="@dimen/_12ssp" />
+        </LinearLayout>
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/epxListIncome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            tools:listitem="@layout/epoxy_item_income"
+            android:layout_marginHorizontal="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_100sdp"
+            android:clipToPadding="false"
+            android:layout_marginBottom="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@id/ivBack"
+            app:layout_constraintBottom_toTopOf="@id/adView"
+            />
+
+        <LinearLayout
+            android:id="@+id/lnEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_130sdp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/ivBack">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iv_empty_audio" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:fontFamily="@font/inter_medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/you_don_t_have_any_income_yet"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="@+id/ivSearch"
+                app:layout_constraintStart_toStartOf="@+id/ivBack"
+                app:layout_constraintTop_toBottomOf="@id/ivBack" />
+
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
