@@ -17,12 +17,15 @@ import com.tuanvu.quanlichitieu.R
 import com.tuanvu.quanlichitieu.base.BaseActivity
 import com.tuanvu.quanlichitieu.databinding.ActivityIncomeCategoriesBinding
 import com.tuanvu.quanlichitieu.future.application.MyApplication
+import com.tuanvu.quanlichitieu.future.database.entity.ExpenseCategories
 import com.tuanvu.quanlichitieu.future.database.entity.IncomeCategories
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewModelFactory
 import com.tuanvu.quanlichitieu.future.dialog.DeleteDialog
 import com.tuanvu.quanlichitieu.future.dialog.RenameDialog
 import com.tuanvu.quanlichitieu.future.epoxy.controller.IncomeCategoriesController
+import com.tuanvu.quanlichitieu.future.fragment.AddExpenseFragment
+import com.tuanvu.quanlichitieu.future.fragment.AddIncomeCatFragment
 import com.tuanvu.quanlichitieu.future.fragment.DetailIncomeFragment
 import com.tuanvu.quanlichitieu.future.ultis.AppExtensions
 import com.tuanvu.quanlichitieu.future.ultis.makeGone
@@ -52,7 +55,9 @@ class IncomeCategoriesActivity : BaseActivity<ActivityIncomeCategoriesBinding>()
             binding.ivSearch.makeGone()
             binding.lnSearch.makeVisible()
         }
-
+        binding.ivAdd.setOnClickListener {
+            addFragment(AddIncomeCatFragment.instance())
+        }
         binding.tvCancel.setOnClickListener {
             binding.edtInputSearch.setText("")
             binding.lnSearch.makeGone()
@@ -71,7 +76,19 @@ class IncomeCategoriesActivity : BaseActivity<ActivityIncomeCategoriesBinding>()
             override fun afterTextChanged(s: Editable?) {
             }
         })
-
+        supportFragmentManager.setFragmentResultListener(
+            "KEY_ADD",
+            this
+        ) { _: String, bundle: Bundle ->
+            val result = bundle.getSerializable("DATA_KEY_ADD") as IncomeCategories
+            listIncomeCategories.add(result)
+            incomeCategoriesController.setDataItem(result)
+            incomeCategoriesViewModel.insert(result)
+            if (listIncomeCategories.isEmpty()) {
+                binding.lnEmpty.makeVisible()
+                binding.epxListIncome.makeGone()
+            }
+        }
 
         supportFragmentManager.setFragmentResultListener(
             "KEY_DELETE",

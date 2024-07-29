@@ -12,7 +12,7 @@
     <color name="color_primary">#FFBE5D</color>
     <color name="color_primary_dark">#6350FF</color>
     <color name="color_accent">@color/color_primary</color>
-    <color name="clr_primary_orange">#FFBE5D</color>
+    <color name="clr_primary_orange">#FF8B52</color>
     <color name="clr_primary_orange_second">#FAE2BD</color>
     <color name="unselected_text_color">#86868E</color>
     <color name="bg_controller">#1A7F72FE</color>

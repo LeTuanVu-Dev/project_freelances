@@ -17,7 +17,13 @@ class IncomeController :
     fun setOnClickMore(callback: (Income, View) -> Unit) {
         this.callbackMore = callback
     }
-
+    fun setDataItem(listAudio: Income) {
+        if (listItem.isEmpty()){
+            this.listItem.clear()
+        }
+        listItem.add(listAudio)
+        requestModelBuild()
+    }
     fun setDataListItem(listAudio: List<Income>) {
         this.listItem.clear()
         listItem.addAll(listAudio)
@@ -25,7 +31,6 @@ class IncomeController :
     }
     fun updateItemUpdateList(audioHistory: Income) {
         val index = listItem.indexOfFirst { it.income_id == audioHistory.income_id }
-
         if (index != -1) {
             listItem[index] = audioHistory
         }

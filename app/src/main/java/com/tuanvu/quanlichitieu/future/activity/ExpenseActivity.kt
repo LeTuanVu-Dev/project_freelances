@@ -17,11 +17,14 @@ import com.tuanvu.quanlichitieu.R
 import com.tuanvu.quanlichitieu.base.BaseActivity
 import com.tuanvu.quanlichitieu.databinding.ActivityExpenseBinding
 import com.tuanvu.quanlichitieu.future.application.MyApplication
+import com.tuanvu.quanlichitieu.future.database.entity.Income
 import com.tuanvu.quanlichitieu.future.database.entity.TableExpense
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
 import com.tuanvu.quanlichitieu.future.dialog.DeleteDialog
 import com.tuanvu.quanlichitieu.future.epoxy.controller.ExpenseController
+import com.tuanvu.quanlichitieu.future.fragment.AddExpenseFragment
+import com.tuanvu.quanlichitieu.future.fragment.AddIncomeFragment
 import com.tuanvu.quanlichitieu.future.fragment.DetailExpenseFragment
 import com.tuanvu.quanlichitieu.future.fragment.DetailIncomeFragment
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
@@ -50,7 +53,9 @@ class ExpenseActivity : BaseActivity<ActivityExpenseBinding>() {
             binding.ivSearch.makeGone()
             binding.lnSearch.makeVisible()
         }
-
+        binding.ivAdd.setOnClickListener {
+            addFragment(AddExpenseFragment.instance())
+        }
         binding.tvCancel.setOnClickListener {
             binding.edtInputSearch.setText("")
             binding.lnSearch.makeGone()
@@ -69,7 +74,19 @@ class ExpenseActivity : BaseActivity<ActivityExpenseBinding>() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
-
+        supportFragmentManager.setFragmentResultListener(
+            "KEY_ADD",
+            this
+        ) { _: String, bundle: Bundle ->
+            val result = bundle.getSerializable("DATA_KEY_ADD") as TableExpense
+            listExpense.add(result)
+            expenseViewModel.insert(result)
+            expenseController.setDataItem(result)
+            if (listExpense.isEmpty()) {
+                binding.lnEmpty.makeVisible()
+                binding.epxListIncome.makeGone()
+            }
+        }
 
         supportFragmentManager.setFragmentResultListener(
             "KEY_DELETE",

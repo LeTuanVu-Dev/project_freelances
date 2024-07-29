@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,7 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.TableUserViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.TableUserViewModelFactory
 import com.tuanvu.quanlichitieu.future.dialog.DeleteDialog
 import com.tuanvu.quanlichitieu.future.epoxy.controller.IncomeController
+import com.tuanvu.quanlichitieu.future.fragment.AddIncomeFragment
 import com.tuanvu.quanlichitieu.future.fragment.DetailIncomeFragment
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
 import com.tuanvu.quanlichitieu.future.ultis.makeGone
@@ -60,6 +62,10 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
             incomeController.setDataListItem(listIncome)
         }
 
+        binding.ivAdd.setOnClickListener {
+            addFragment(AddIncomeFragment.instance())
+        }
+
         binding.edtInputSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -71,14 +77,26 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
             override fun afterTextChanged(s: Editable?) {
             }
         })
-
+        supportFragmentManager.setFragmentResultListener(
+            "KEY_ADD",
+            this
+        ) { _: String, bundle: Bundle ->
+            val result = bundle.getSerializable("DATA_KEY_ADD") as Income
+            listIncome.add(result)
+            incomeViewModel.insert(result)
+            incomeController.setDataItem(result)
+            Log.d("VuLT", "createView: $listIncome")
+            if (listIncome.isEmpty()) {
+                binding.lnEmpty.makeVisible()
+                binding.epxListIncome.makeGone()
+            }
+        }
 
         supportFragmentManager.setFragmentResultListener(
             "KEY_DELETE",
             this
         ) { _: String, bundle: Bundle ->
             val result = bundle.getSerializable("DATA_KEY_DELETE") as Income
-//            incomeViewModel.delete(result)
             incomeController.deleteAudioAndUpdateList(result)
             listIncome.remove(result)
             if (listIncome.isEmpty()) {
@@ -110,7 +128,6 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
                 incomeController.setOnClick { income ->
                     itemIncome = income
                     addFragment(DetailIncomeFragment.instance(income.income_id))
-
                 }
                 incomeController.setOnClickMore { audioHistory, view ->
                     showPopupMenu(view, audioHistory)
@@ -122,6 +139,7 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
             }
         }
     }
+
     private fun filterWithSearch(query: String) {
         filteredList.clear()
         if (query.isEmpty()) {

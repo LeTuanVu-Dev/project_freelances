@@ -2,6 +2,7 @@ package com.tuanvu.quanlichitieu.future.epoxy.controller
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
+import com.tuanvu.quanlichitieu.future.database.entity.ExpenseCategories
 import com.tuanvu.quanlichitieu.future.database.entity.Income
 import com.tuanvu.quanlichitieu.future.database.entity.IncomeCategories
 import com.tuanvu.quanlichitieu.itemIncome
@@ -19,7 +20,13 @@ class IncomeCategoriesController :
     fun setOnClickMore(callback: (IncomeCategories, View) -> Unit) {
         this.callbackMore = callback
     }
-
+    fun setDataItem(listAudio: IncomeCategories) {
+        if (listItem.isEmpty()){
+            this.listItem.clear()
+        }
+        listItem.add(listAudio)
+        requestModelBuild()
+    }
     fun setDataListItem(listAudio: List<IncomeCategories>) {
         this.listItem.clear()
         listItem.addAll(listAudio)

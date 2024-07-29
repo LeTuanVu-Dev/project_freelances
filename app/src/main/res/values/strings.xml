@@ -46,4 +46,9 @@
     <string name="rename">Rename</string>
     <string name="name_cannot_be_blank">Name cannot be blank</string>
     <string name="expense_category">Expense Category</string>
+    <string name="add">Add</string>
+    <string name="create_income">Create Income</string>
+    <string name="create_expense">Create Expense</string>
+    <string name="create_expense_categories">Create Expense Categories</string>
+    <string name="create_income_categories">Create Income Categories</string>
 </resources>

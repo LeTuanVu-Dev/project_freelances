@@ -1,6 +1,7 @@
 package com.tuanvu.quanlichitieu.future.activity
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.viewModels
 import com.tuanvu.quanlichitieu.base.BaseActivity
 import com.tuanvu.quanlichitieu.databinding.ActivityMainBinding
@@ -37,6 +38,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         ExpenseCategoriesViewModelFactory((application as MyApplication).expenseCategoriesRepository)
     }
     override fun createView() {
+        Log.d("VuLT", "createView: MainActivity")
+
         binding.ctnSetting.setOnClickListener {
             startActivity(Intent(this,SettingActivity::class.java))
         }

@@ -20,7 +20,13 @@ class ExpenseCategoriesController :
     fun setOnClickMore(callback: (ExpenseCategories, View) -> Unit) {
         this.callbackMore = callback
     }
-
+    fun setDataItem(listAudio: ExpenseCategories) {
+        if (listItem.isEmpty()){
+            this.listItem.clear()
+        }
+        listItem.add(listAudio)
+        requestModelBuild()
+    }
     fun setDataListItem(listAudio: List<ExpenseCategories>) {
         this.listItem.clear()
         listItem.addAll(listAudio)

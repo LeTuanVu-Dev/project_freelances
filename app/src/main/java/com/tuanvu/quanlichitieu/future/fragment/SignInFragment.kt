@@ -2,6 +2,7 @@ package com.tuanvu.quanlichitieu.future.fragment
 
 import android.content.Intent
 import android.text.InputType
+import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,6 +26,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
 
     private var isShowPass = false
     override fun initView() {
+        Log.d("VuLT", "createView: SignInFragment")
 
         binding.tvSignUp.setOnClickListener {
             replaceFragment(SignUpFragment.instance())
