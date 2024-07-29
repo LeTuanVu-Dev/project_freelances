@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.tuanvu.quanlichitieu.future.ultis.LineChartView
-        android:id="@+id/chartView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:scatter="http://schemas.android.com/tools">
+    <com.tuanvu.quanlichitieu.future.ultis.PieChart
+        android:id="@+id/pie_chart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="1"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
+        scatter:aboutChart="About Your Chart"
+        scatter:equalPartition="false"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
