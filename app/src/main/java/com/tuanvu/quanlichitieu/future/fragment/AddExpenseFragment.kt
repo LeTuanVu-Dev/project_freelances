@@ -45,7 +45,7 @@ class AddExpenseFragment : BaseFragment<FragmentAddExpenseBinding>() {
                 val amount = binding.inputAmount.text.toString().toFloat()
                 val date = binding.inputDate.text.toString().trim()
                 val des = binding.inputDescription.text.toString().trim()
-                val status = if (isState) Constants.PAID else Constants.UNPAID
+                val status = if (isState) Constants.RECEIVED else Constants.NOT_RECEIVED
                 val itemExpense = TableExpense(user_id = SharedPreferenceUtils.keyUserLogin,
                     category_id =idCat, amount = amount, date = date, description = des , status = status)
                 val result = Bundle().apply {

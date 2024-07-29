@@ -10,5 +10,6 @@ object Constants {
     const val FEMALE = "Female"
     const val PAID = "Paid"
     const val UNPAID = "Unpaid"
-
+    const val RECEIVED = "Received"
+    const val NOT_RECEIVED = "Not Received"
 }
