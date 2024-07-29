@@ -66,6 +66,16 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
             addFragment(AddIncomeFragment.instance())
         }
 
+        binding.epxListIncome.setControllerAndBuildModels(incomeController)
+        incomeController.setOnClick { income ->
+            itemIncome = income
+            addFragment(DetailIncomeFragment.instance(income.income_id))
+        }
+        incomeController.setOnClickMore { audioHistory, view ->
+            showPopupMenu(view, audioHistory)
+        }
+
+
         binding.edtInputSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -90,6 +100,11 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
                 binding.lnEmpty.makeVisible()
                 binding.epxListIncome.makeGone()
             }
+            else{
+                binding.lnEmpty.makeGone()
+                binding.epxListIncome.makeVisible()
+            }
+
         }
 
         supportFragmentManager.setFragmentResultListener(
@@ -124,14 +139,6 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
                 listIncome.addAll(list)
                 isLoadData = true
                 incomeController.setDataListItem(listIncome)
-                binding.epxListIncome.setControllerAndBuildModels(incomeController)
-                incomeController.setOnClick { income ->
-                    itemIncome = income
-                    addFragment(DetailIncomeFragment.instance(income.income_id))
-                }
-                incomeController.setOnClickMore { audioHistory, view ->
-                    showPopupMenu(view, audioHistory)
-                }
                 if (listIncome.isEmpty()) {
                     binding.lnEmpty.makeVisible()
                     binding.epxListIncome.makeGone()

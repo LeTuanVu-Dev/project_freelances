@@ -1,5 +1,6 @@
 package com.tuanvu.quanlichitieu.future.epoxy.controller
 
+import android.util.Log
 import android.view.View
 import com.airbnb.epoxy.EpoxyController
 import com.tuanvu.quanlichitieu.future.database.entity.Income
@@ -18,9 +19,6 @@ class IncomeController :
         this.callbackMore = callback
     }
     fun setDataItem(listAudio: Income) {
-        if (listItem.isEmpty()){
-            this.listItem.clear()
-        }
         listItem.add(listAudio)
         requestModelBuild()
     }
@@ -42,9 +40,10 @@ class IncomeController :
     }
 
     override fun buildModels() {
+        Log.d("VuLT", "buildModels: "+ listItem.size)
         listItem.forEach { item ->
             itemIncome {
-                id(item.income_id)
+                id(item.hashCode())
                 title(item.description)
                 status(item.status)
                 date(item.date)

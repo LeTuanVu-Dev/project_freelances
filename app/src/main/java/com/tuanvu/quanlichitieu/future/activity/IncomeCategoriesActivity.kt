@@ -88,6 +88,10 @@ class IncomeCategoriesActivity : BaseActivity<ActivityIncomeCategoriesBinding>()
                 binding.lnEmpty.makeVisible()
                 binding.epxListIncome.makeGone()
             }
+            else{
+                binding.lnEmpty.makeGone()
+                binding.epxListIncome.makeVisible()
+            }
         }
 
         supportFragmentManager.setFragmentResultListener(
