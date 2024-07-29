@@ -50,6 +50,7 @@ class ExpenseController :
                 id(item.expense_id)
                 title(item.description)
                 status(item.status)
+                idCat("id Category: ${item.category_id}")
                 date(item.date)
                 timeStep(500L)
                 onClick {_->

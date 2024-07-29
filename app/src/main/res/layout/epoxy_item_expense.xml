@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
         <variable
             name="title"
             type="String" />
-
+        <variable
+            name="idCat"
+            type="String" />
         <variable
             name="status"
             type="String" />
@@ -55,6 +58,20 @@
             android:layout_marginHorizontal="@dimen/_4sdp"
             android:layout_marginVertical="@dimen/_4sdp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{idCat}"
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/inter_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/black"
+                />
 
             <TextView
                 android:id="@+id/tvDescription"

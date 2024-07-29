@@ -4,6 +4,8 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.activity.viewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.tuanvu.quanlichitieu.R
@@ -12,6 +14,8 @@ import com.tuanvu.quanlichitieu.databinding.FragmentAddExpenseBinding
 import com.tuanvu.quanlichitieu.future.application.MyApplication
 import com.tuanvu.quanlichitieu.future.database.entity.Income
 import com.tuanvu.quanlichitieu.future.database.entity.TableExpense
+import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseCategoriesViewModel
+import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseCategoriesViewModelFactory
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
@@ -25,10 +29,23 @@ class AddExpenseFragment : BaseFragment<FragmentAddExpenseBinding>() {
             return newInstance(AddExpenseFragment::class.java)
         }
     }
-
+    private var listIDCategory = arrayListOf<Long>()
     private var isState = false
-
+    private val expenseCategoriesViewModel: ExpenseCategoriesViewModel by viewModels {
+        ExpenseCategoriesViewModelFactory((requireActivity().application as MyApplication).expenseCategoriesRepository)
+    }
     override fun initView() {
+        expenseCategoriesViewModel.allExpenseCategories.observe(this){
+                list ->
+            if (list.isNotEmpty() && listIDCategory.isEmpty()){
+                listIDCategory.addAll(list.map { it.category_id })
+                val adapter  = ArrayAdapter(requireContext(), R.layout.item_spinner, listIDCategory)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                // Bước 3: Gán ArrayAdapter cho Spinner
+                binding.inputIdCat.adapter = adapter
+            }
+        }
         binding.ivState.setOnClickListener {
             isState = !isState
             binding.ivState.setImageResource(if (isState) R.drawable.toggle_turn_on else R.drawable.toggle_turn_off )
@@ -41,7 +58,7 @@ class AddExpenseFragment : BaseFragment<FragmentAddExpenseBinding>() {
         }
         binding.btnAdd.setOnClickListener {
             if (isValidAddDetails()){
-                val idCat = binding.inputIdCat.text.toString().toLong()
+                val idCat = binding.inputIdCat.selectedItem.toString().toLong()
                 val amount = binding.inputAmount.text.toString().toFloat()
                 val date = binding.inputDate.text.toString().trim()
                 val des = binding.inputDescription.text.toString().trim()
@@ -73,23 +90,22 @@ class AddExpenseFragment : BaseFragment<FragmentAddExpenseBinding>() {
     }
     private fun isValidAddDetails(): Boolean {
         // email trống
-        return if (binding.inputIdCat.text.toString().trim().isEmpty()) {
-            AppExtensions.showToast(requireContext(), "Enter ID Category")
+        return if (binding.inputIdCat.selectedItem ==null) {
+            AppExtensions.showToast(requireContext(), "Bạn chưa có category nào")
             false
         } else if (binding.inputAmount.text.toString().trim().isEmpty()) {
-            AppExtensions.showToast(requireContext(), "Enter Amount")
+            AppExtensions.showToast(requireContext(), "Amount không được trống")
             false
         } else if (binding.inputDate.text.toString().trim().isEmpty()) {
-            AppExtensions.showToast(requireContext(), "Enter Date")
+            AppExtensions.showToast(requireContext(), "Date không được trống")
             false
         } else if (binding.inputDescription.text.toString().trim().isEmpty()) {
-            AppExtensions.showToast(requireContext(), "Enter Description")
+            AppExtensions.showToast(requireContext(), "Description không được trống")
             false
         } else {
             true
         }
     }
-
     override fun handlerBackPressed() {
         super.handlerBackPressed()
         closeFragment(this)

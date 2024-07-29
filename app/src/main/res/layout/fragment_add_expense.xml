@@ -66,13 +66,12 @@
                 app:layout_constraintTop_toTopOf="@id/ivBack" />
 
 
-            <EditText
+            <Spinner
                 android:id="@+id/input_id_cat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_input_edt"
                 android:fontFamily="@font/inter_regular"
-                android:hint="id category"
                 android:inputType="number"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:paddingHorizontal="@dimen/_10sdp"
@@ -215,7 +214,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/paid"
+                android:text="Not Received"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="@color/black"
@@ -232,7 +231,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/unpaid"
+                android:text="Received"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"

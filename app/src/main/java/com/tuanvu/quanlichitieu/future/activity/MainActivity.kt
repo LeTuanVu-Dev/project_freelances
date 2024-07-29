@@ -56,7 +56,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.ctnExpenseCategory.setOnClickListener {
             startActivity(Intent(this,ExpenseCategoriesActivity::class.java))
         }
-        insertDemoExpenseCategory()
+//        insertDemoExpenseCategory()
+//        insertDemoIncomeCategory()
     }
 
 //    letuanvu.work@gmail.com
