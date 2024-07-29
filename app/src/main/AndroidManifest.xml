@@ -19,6 +19,11 @@
             android:screenOrientation="portrait"
            />
         <activity
+            android:name=".future.activity.StaticsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            />
+        <activity
             android:name=".future.activity.SettingActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
