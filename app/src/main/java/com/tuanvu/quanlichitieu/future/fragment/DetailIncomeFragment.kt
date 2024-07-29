@@ -45,8 +45,8 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
                 binding.inputAmount.setText(item.amount.toString())
                 binding.inputDate.setText(item.date)
                 binding.inputDescription.setText(item.description)
-                isState = item.status == Constants.PAID
-                binding.ivState.setImageResource(if (item.status == Constants.PAID) R.drawable.toggle_turn_off
+                isState = item.status == Constants.RECEIVED
+                binding.ivState.setImageResource(if (item.status == Constants.RECEIVED) R.drawable.toggle_turn_off
                 else R.drawable.toggle_turn_on)
             }
         }
@@ -67,7 +67,7 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
             itemIncome.description = binding.inputDescription.text.toString().trim()
             itemIncome.category_id = binding.inputIdCat.text.toString().toLong()
             itemIncome.amount = binding.inputAmount.text.toString().toFloat()
-            itemIncome.status = if (isState) Constants.PAID else  Constants.UNPAID
+            itemIncome.status = if (isState) Constants.RECEIVED else  Constants.NOT_RECEIVED
             incomeViewModel.update(itemIncome)
             val result = Bundle().apply {
                 putSerializable("DATA_KEY_UPDATE", itemIncome)

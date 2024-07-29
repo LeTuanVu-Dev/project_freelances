@@ -46,9 +46,9 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
                 binding.inputAmount.setText(item.amount.toString())
                 binding.inputDate.setText(item.date)
                 binding.inputDescription.setText(item.description)
-                isState = item.status == Constants.RECEIVED
+                isState = item.status == Constants.PAID
                 binding.ivState.setImageResource(
-                    if (item.status == Constants.RECEIVED) R.drawable.toggle_turn_off
+                    if (item.status == Constants.PAID) R.drawable.toggle_turn_off
                     else R.drawable.toggle_turn_on
                 )
             }
@@ -72,7 +72,7 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
             itemExpense.description = binding.inputDescription.text.toString().trim()
             itemExpense.category_id = binding.inputIdCat.text.toString().toLong()
             itemExpense.amount = binding.inputAmount.text.toString().toFloat()
-            itemExpense.status = if (isState) Constants.RECEIVED else Constants.NOT_RECEIVED
+            itemExpense.status = if (isState) Constants.PAID else Constants.UNPAID
             expenseViewModel.update(itemExpense)
             val result = Bundle().apply {
                 putSerializable("DATA_KEY_UPDATE", itemExpense)

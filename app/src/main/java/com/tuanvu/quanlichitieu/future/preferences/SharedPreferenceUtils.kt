@@ -6,6 +6,7 @@ object SharedPreferenceUtils {
     private const val FIRST_OPEN_APP = "FIRST_OPEN_APP"
     private const val PREF_CNT_OPEN_APP = "PREF_CNT_OPEN_APP"
     private const val KEY_USER = "KEY_USER"
+    private const val NAME_USER = "NAME_USER"
 
 
     var firstOpenApp: Boolean
@@ -20,4 +21,9 @@ object SharedPreferenceUtils {
         get() =
             MyApplication.instanceSharePreference.getLongValue(KEY_USER, -1)
         set(value) = MyApplication.instanceSharePreference.setLongValue(KEY_USER, value)
+
+    var keyUserNameLogin: String?
+        get() =
+            MyApplication.instanceSharePreference.getValue(NAME_USER, "")
+        set(value) = MyApplication.instanceSharePreference.setValue(NAME_USER, value)
 }

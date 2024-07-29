@@ -79,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{title}"
                 android:textSize="@dimen/_14ssp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:singleLine="true"
                 android:maxLength="50"
                 android:ellipsize="marquee"

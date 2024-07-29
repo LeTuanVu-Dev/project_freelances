@@ -18,6 +18,7 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewMo
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewModelFactory
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
+import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
 import com.tuanvu.quanlichitieu.future.ultis.Constants
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -40,6 +41,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun createView() {
         Log.d("VuLT", "createView: MainActivity")
 
+        binding.tvNameUser.text = SharedPreferenceUtils.keyUserNameLogin
         binding.ctnSetting.setOnClickListener {
             startActivity(Intent(this,SettingActivity::class.java))
         }

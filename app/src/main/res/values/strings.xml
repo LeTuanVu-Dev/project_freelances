@@ -51,4 +51,6 @@
     <string name="create_expense">Create Expense</string>
     <string name="create_expense_categories">Create Expense Categories</string>
     <string name="create_income_categories">Create Income Categories</string>
+    <string name="not_received">Not Received</string>
+    <string name="received">Received</string>
 </resources>

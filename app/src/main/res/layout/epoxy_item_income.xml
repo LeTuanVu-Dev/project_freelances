@@ -87,6 +87,7 @@
                 android:layout_marginHorizontal="@dimen/_8sdp"
                 android:fontFamily="@font/inter_semibold"
                 android:includeFontPadding="false"
+                android:layout_marginTop="@dimen/_4sdp"
                 app:layout_constraintTop_toTopOf="@id/ivBack"
                 app:layout_constraintBottom_toBottomOf="@id/ivBack"
                 android:textColor="@color/black"
