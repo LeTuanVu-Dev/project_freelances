@@ -140,7 +140,7 @@ class BarChartView @JvmOverloads constructor(
         if (listColumn.isEmpty()) return
 
         val paintIncome = Paint().apply {
-            color = Color.BLUE
+            color = Color.GREEN
             style = Paint.Style.FILL
         }
 
