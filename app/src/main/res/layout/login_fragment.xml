@@ -62,6 +62,7 @@
             android:id="@+id/input_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
             android:background="@drawable/bg_input_edt"
             android:fontFamily="@font/inter_regular"
             android:hint="@string/email"
@@ -97,6 +98,7 @@
         <EditText
             android:id="@+id/input_Pass"
             android:layout_width="match_parent"
+            android:imeOptions="actionDone"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_input_edt"
             android:fontFamily="@font/inter_regular"

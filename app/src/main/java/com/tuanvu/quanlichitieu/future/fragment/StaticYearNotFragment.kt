@@ -19,10 +19,10 @@ import com.tuanvu.quanlichitieu.future.ultis.DateAmount
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
+class StaticYearNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
     companion object {
-        fun instance(): StaticMonthFragment {
-            return newInstance(StaticMonthFragment::class.java)
+        fun instance(): StaticYearNotFragment {
+            return newInstance(StaticYearNotFragment::class.java)
         }
     }
     private val incomeViewModel: IncomeViewModel by viewModels {
@@ -32,48 +32,48 @@ class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
     private val expenseViewModel: ExpenseViewModel by viewModels {
         ExpenseViewModelFactory((requireActivity().application as MyApplication).expenseRepository)
     }
-    private var sumController = SumController()
 
     private var listItemPaid = arrayListOf<Income>()
     private var listItemReceived = arrayListOf<TableExpense>()
-    // Lớp DateAmount để chứa dữ liệu đã lọc theo tháng và năm
+
 
     val matchingItems = arrayListOf<DateAmount>()
+    private var sumController = SumController()
 
     val dateFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())  // Định dạng cho ngày dạng: 9/7/2024
-    val monthYearFormat = SimpleDateFormat("MM/yyyy", Locale.getDefault())
+    val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
     override fun initView() {
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.PAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
                 listItemPaid.addAll(filteredIncomeList)
 
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
                         listItemReceived.addAll(filteredExpenseList)
 
-                        // Lấy danh sách tháng/năm từ danh sách income và expense
-                        val incomeMonthYears = listItemPaid.map {
-                            monthYearFormat.format(dateFormat.parse(it.date)!!)
+                        // Lấy danh sách năm từ danh sách income và expense
+                        val incomeYears = listItemPaid.map {
+                            yearFormat.format(dateFormat.parse(it.date)!!)
                         }.toSet()
-                        val expenseMonthYears = listItemReceived.map {
-                            monthYearFormat.format(dateFormat.parse(it.date)!!)
+                        val expenseYears = listItemReceived.map {
+                            yearFormat.format(dateFormat.parse(it.date)!!)
                         }.toSet()
-                        val allMonthYears = incomeMonthYears union expenseMonthYears
+                        val allYears = incomeYears union expenseYears
 
-                        allMonthYears.forEach { monthYear ->
+                        allYears.forEach { year ->
                             val incomeAmount = listItemPaid
-                                .filter { monthYearFormat.format(dateFormat.parse(it.date)!!) == monthYear }
+                                .filter { yearFormat.format(dateFormat.parse(it.date)!!) == year }
                                 .sumByDouble { it.amount.toDouble() }
                             val expenseAmount = listItemReceived
-                                .filter { monthYearFormat.format(dateFormat.parse(it.date)!!) == monthYear }
+                                .filter { yearFormat.format(dateFormat.parse(it.date)!!) == year }
                                 .sumByDouble { it.amount.toDouble() }
                             matchingItems.add(
                                 DateAmount(
-                                    monthYear.split("/").first(),
+                                    year,
                                     incomeAmount.toFloat(),
                                     expenseAmount.toFloat()
                                 )

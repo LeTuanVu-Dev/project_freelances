@@ -60,12 +60,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         binding.ctnStatistics.setOnClickListener {
-            startActivity(Intent(this,StaticsActivity::class.java))
+            startActivity(Intent(this,StaticsPainAndReceivedActivity::class.java))
         }
-        insertDemoExpenseCategory()
-        insertDemoIncomeCategory()
-        insertDemoIncome()
-        insertDemoExpense()
+//        insertDemoExpenseCategory()
+//        insertDemoIncomeCategory()
+//        insertDemoIncome()
+//        insertDemoExpense()
 //        var item10 = Income(user_id = 1, category_id = 1, amount = 3f, description = "demo10", date = "11/10/2024", status = Constants.PAID)
 //        incomeViewModel.insert(item10)
 //        var item11 = TableExpense(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.RECEIVED)
@@ -93,7 +93,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
     private fun insertDemoExpense(){
         var item1 = TableExpense(user_id = 1, category_id = 1, amount = 10f, description = "demo1", date = "1/1/2024", status = Constants.RECEIVED)
-        var item2 = TableExpense(user_id = 1, category_id = 1, amount = 7f, description = "demo2", date = "2/2/2024", status = Constants.UNPAID)
+        var item2 = TableExpense(user_id = 1, category_id = 1, amount = 7f, description = "demo2", date = "2/2/2024", status = Constants.NOT_RECEIVED)
         var item3 = TableExpense(user_id = 1, category_id = 2, amount = 6f, description = "demo3", date = "3/3/2024", status = Constants.RECEIVED)
         var item4 = TableExpense(user_id = 1, category_id = 1, amount = 2f, description = "demo4", date = "4/5/2024", status = Constants.RECEIVED)
         var item5 = TableExpense(user_id = 1, category_id = 1, amount = 8f, description = "demo5", date = "5/4/2024", status = Constants.RECEIVED)

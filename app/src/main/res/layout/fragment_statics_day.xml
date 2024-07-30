@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
     <com.tuanvu.quanlichitieu.future.ultis.BarChartView
         android:id="@+id/pie_chart"
@@ -15,57 +16,18 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
-    <LinearLayout
-        android:id="@+id/lnIncome"
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/epxList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/pie_chart"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        >
-        <View
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
-            android:background="@color/color_incorrect"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tổng Chi"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="@dimen/_16ssp"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/lnIncome"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        >
-        <View
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="match_parent"
-            android:background="@color/color_green"
-            />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Tổng Thu"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/inter_medium"
-            android:textSize="@dimen/_16ssp"
-            />
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingBottom="@dimen/_100sdp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/epoxy_item_sum"
+        android:clipToPadding="false"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

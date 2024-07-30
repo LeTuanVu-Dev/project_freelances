@@ -12,8 +12,11 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
+import com.tuanvu.quanlichitieu.future.epoxy.controller.IncomeCategoriesController
+import com.tuanvu.quanlichitieu.future.epoxy.controller.SumController
 import com.tuanvu.quanlichitieu.future.ultis.BarChartView
 import com.tuanvu.quanlichitieu.future.ultis.Constants
+import com.tuanvu.quanlichitieu.future.ultis.DateAmount
 
 class StaticDayFragment : BaseFragment<FragmentStaticsDayBinding>() {
     companion object {
@@ -33,10 +36,11 @@ class StaticDayFragment : BaseFragment<FragmentStaticsDayBinding>() {
     private var listItemPaid = arrayListOf<Income>()
     private var listItemReceived = arrayListOf<TableExpense>()
 
-    data class DateAmount(val date: String, val incomeAmount: Float, val expenseAmount: Float)
+    private var sumController = SumController()
 
-    private val matchingItems = mutableListOf<DateAmount>()
+    private val matchingItems = arrayListOf<DateAmount>()
     override fun initView() {
+
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
@@ -66,6 +70,9 @@ class StaticDayFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                 )
                             )
                         }
+
+                        sumController.setDataListItem(matchingItems)
+                        binding.epxList.setControllerAndBuildModels(sumController)
 
                         // Ví dụ: In ra các giá trị trong danh sách matchingItems
                         binding.pieChart

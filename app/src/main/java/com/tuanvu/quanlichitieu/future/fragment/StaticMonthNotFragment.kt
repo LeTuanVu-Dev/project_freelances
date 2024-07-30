@@ -19,10 +19,10 @@ import com.tuanvu.quanlichitieu.future.ultis.DateAmount
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
+class StaticMonthNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
     companion object {
-        fun instance(): StaticMonthFragment {
-            return newInstance(StaticMonthFragment::class.java)
+        fun instance(): StaticMonthNotFragment {
+            return newInstance(StaticMonthNotFragment::class.java)
         }
     }
     private val incomeViewModel: IncomeViewModel by viewModels {
@@ -46,13 +46,13 @@ class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.PAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
                 listItemPaid.addAll(filteredIncomeList)
 
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
                         listItemReceived.addAll(filteredExpenseList)
 
                         // Lấy danh sách tháng/năm từ danh sách income và expense

@@ -12,8 +12,10 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
+import com.tuanvu.quanlichitieu.future.epoxy.controller.SumController
 import com.tuanvu.quanlichitieu.future.ultis.BarChartView
 import com.tuanvu.quanlichitieu.future.ultis.Constants
+import com.tuanvu.quanlichitieu.future.ultis.DateAmount
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -34,9 +36,9 @@ class StaticYearFragment : BaseFragment<FragmentStaticsDayBinding>() {
     private var listItemPaid = arrayListOf<Income>()
     private var listItemReceived = arrayListOf<TableExpense>()
 
-    data class DateAmount(val year: String, val incomeAmount: Float, val expenseAmount: Float)
+    private var sumController = SumController()
 
-    val matchingItems = mutableListOf<DateAmount>()
+    val matchingItems = arrayListOf<DateAmount>()
 
     val dateFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())  // Định dạng cho ngày dạng: 9/7/2024
     val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
@@ -77,7 +79,8 @@ class StaticYearFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                 )
                             )
                         }
-
+                        sumController.setDataListItem(matchingItems)
+                        binding.epxList.setControllerAndBuildModels(sumController)
                         // Ví dụ: In ra các giá trị trong danh sách matchingItems
                         binding.pieChart.submitData(mutableListOf<BarChartView.DataChart>().apply {
                             matchingItems.forEach { item ->
@@ -85,7 +88,7 @@ class StaticYearFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                     BarChartView.DataChart(
                                         item.incomeAmount,
                                         item.expenseAmount,
-                                        item.year
+                                        item.date
                                     )
                                 )
                             }

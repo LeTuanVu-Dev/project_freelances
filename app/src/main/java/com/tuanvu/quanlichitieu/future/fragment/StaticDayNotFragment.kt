@@ -1,5 +1,6 @@
 package com.tuanvu.quanlichitieu.future.fragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
@@ -16,15 +17,14 @@ import com.tuanvu.quanlichitieu.future.epoxy.controller.SumController
 import com.tuanvu.quanlichitieu.future.ultis.BarChartView
 import com.tuanvu.quanlichitieu.future.ultis.Constants
 import com.tuanvu.quanlichitieu.future.ultis.DateAmount
-import java.text.SimpleDateFormat
-import java.util.Locale
 
-class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
+class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
     companion object {
-        fun instance(): StaticMonthFragment {
-            return newInstance(StaticMonthFragment::class.java)
+        fun instance(): StaticDayNotFragment {
+            return newInstance(StaticDayNotFragment::class.java)
         }
     }
+
     private val incomeViewModel: IncomeViewModel by viewModels {
         IncomeViewModelFactory((requireActivity().application as MyApplication).incomeRepository)
     }
@@ -32,48 +32,38 @@ class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
     private val expenseViewModel: ExpenseViewModel by viewModels {
         ExpenseViewModelFactory((requireActivity().application as MyApplication).expenseRepository)
     }
-    private var sumController = SumController()
 
     private var listItemPaid = arrayListOf<Income>()
     private var listItemReceived = arrayListOf<TableExpense>()
-    // Lớp DateAmount để chứa dữ liệu đã lọc theo tháng và năm
 
-    val matchingItems = arrayListOf<DateAmount>()
+    private var sumController = SumController()
 
-    val dateFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())  // Định dạng cho ngày dạng: 9/7/2024
-    val monthYearFormat = SimpleDateFormat("MM/yyyy", Locale.getDefault())
+    private val matchingItems = arrayListOf<DateAmount>()
     override fun initView() {
+        Log.d("VuLT", "initView:")
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.PAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
                 listItemPaid.addAll(filteredIncomeList)
-
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.RECEIVED }
+                        val filteredExpenseList =
+                            lstExpense.filter { it.status == Constants.NOT_RECEIVED }
                         listItemReceived.addAll(filteredExpenseList)
+                        Log.d("VuLT", "initView: $filteredExpenseList")
+                        val incomeDates = listItemPaid.map { it.date }.toSet()
+                        val expenseDates = listItemReceived.map { it.date }.toSet()
+                        val allDates = incomeDates union expenseDates
 
-                        // Lấy danh sách tháng/năm từ danh sách income và expense
-                        val incomeMonthYears = listItemPaid.map {
-                            monthYearFormat.format(dateFormat.parse(it.date)!!)
-                        }.toSet()
-                        val expenseMonthYears = listItemReceived.map {
-                            monthYearFormat.format(dateFormat.parse(it.date)!!)
-                        }.toSet()
-                        val allMonthYears = incomeMonthYears union expenseMonthYears
-
-                        allMonthYears.forEach { monthYear ->
-                            val incomeAmount = listItemPaid
-                                .filter { monthYearFormat.format(dateFormat.parse(it.date)!!) == monthYear }
-                                .sumByDouble { it.amount.toDouble() }
-                            val expenseAmount = listItemReceived
-                                .filter { monthYearFormat.format(dateFormat.parse(it.date)!!) == monthYear }
-                                .sumByDouble { it.amount.toDouble() }
+                        allDates.forEach { date ->
+                            val incomeAmount = listItemPaid.find { it.date == date }?.amount ?: 0.0
+                            val expenseAmount =
+                                listItemReceived.find { it.date == date }?.amount ?: 0.0
                             matchingItems.add(
                                 DateAmount(
-                                    monthYear.split("/").first(),
+                                    date.split("/").first(),
                                     incomeAmount.toFloat(),
                                     expenseAmount.toFloat()
                                 )
@@ -82,27 +72,29 @@ class StaticMonthFragment : BaseFragment<FragmentStaticsDayBinding>() {
                         sumController.setDataListItem(matchingItems)
                         binding.epxList.setControllerAndBuildModels(sumController)
                         // Ví dụ: In ra các giá trị trong danh sách matchingItems
-                        binding.pieChart.submitData(mutableListOf<BarChartView.DataChart>().apply {
-                            matchingItems.forEach { item ->
-                                add(
-                                    BarChartView.DataChart(
-                                        item.incomeAmount,
-                                        item.expenseAmount,
-                                        item.date
+                        binding.pieChart
+                            .submitData(mutableListOf<BarChartView.DataChart>().apply {
+                                matchingItems.forEach { item ->
+                                    add(
+                                        BarChartView.DataChart(
+                                            item.incomeAmount, // Random value between 0 and 100
+                                            item.expenseAmount, // Random value between 0 and 100
+                                            item.date
+                                        )
                                     )
-                                )
-                            }
-                        })
+                                }
+                            })
                     }
                 }
             }
         }
+
     }
 
     override fun getBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentStaticsDayBinding {
-        return FragmentStaticsDayBinding.inflate(inflater,container,false)
+        return FragmentStaticsDayBinding.inflate(inflater, container, false)
     }
 }
