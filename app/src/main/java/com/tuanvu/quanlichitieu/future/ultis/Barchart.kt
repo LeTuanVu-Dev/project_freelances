@@ -28,7 +28,7 @@ class BarChartView @JvmOverloads constructor(
 
     fun submitData(data: MutableList<DataChart>) {
         listColumn.clear()
-        this.dataList = data;
+        this.dataList = data
         initMaxMin(data)
         initColumnData(dataList)
         invalidate()
@@ -78,10 +78,10 @@ class BarChartView @JvmOverloads constructor(
         if (field.isNotEmpty()) {
             val maxIncome = field.maxOf { it.income }
             val maxSpend = field.maxOf { it.spending }
-            maxValue = 200.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
-            secondValue = 40.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
-            threeValue = 80.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
-            forValue = 160.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
+            maxValue = 200.000f
+            secondValue = 40.000f
+            threeValue = 80.000f
+            forValue = 160.000f
         } else {
             maxValue = 0f
             secondValue = 0f
@@ -135,7 +135,7 @@ class BarChartView @JvmOverloads constructor(
             })
 
         val textY1 = (height * bottom)
-        val textY2 = (height * 0.05f)
+        val textY2 = (height * 0.1f)
         val textY3 = (height - (height / 3))
         val textY4 = (height - (height / 2))
         val textY5 = (height * 0.3f)
@@ -146,7 +146,7 @@ class BarChartView @JvmOverloads constructor(
         canvas.drawText(forValue.toInt().toString(), textX, textY5, paintText)
         canvas.drawText(maxValue.toInt().toString(), textX, textY2, paintText)
     }
-    fun dpToPx(dp: Float): Float {
+    private fun dpToPx(dp: Float): Float {
         val density = context.resources.displayMetrics.density
         return dp * density
     }
