@@ -1,5 +1,6 @@
 package com.tuanvu.quanlichitieu.future.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
 import com.tuanvu.quanlichitieu.future.dialog.DeleteDialog
 import com.tuanvu.quanlichitieu.future.ultis.Constants
+import java.util.Calendar
 
 class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
     companion object {
@@ -40,7 +42,19 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
     private val expenseCategoriesViewModel: ExpenseCategoriesViewModel by viewModels {
         ExpenseCategoriesViewModelFactory((requireActivity().application as MyApplication).expenseCategoriesRepository)
     }
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            binding.inputDate.text = selectedDate
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
     override fun initView() {
         arguments?.let {
             incomeId = it.getLong(INCOME_ID)
@@ -71,6 +85,11 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
 
             }
         }
+
+        binding.inputDate.setOnClickListener {
+            showDatePickerDialog()
+        }
+
         binding.ivBack.setOnClickListener {
             handlerBackPressed()
         }

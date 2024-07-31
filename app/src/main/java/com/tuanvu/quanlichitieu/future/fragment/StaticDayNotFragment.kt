@@ -46,21 +46,33 @@ class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                 // Lọc danh sách income với state = true
                 val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
                 listItemPaid.addAll(filteredIncomeList)
+
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList =
-                            lstExpense.filter { it.status == Constants.NOT_RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
                         listItemReceived.addAll(filteredExpenseList)
-                        Log.d("VuLT", "initView: $filteredExpenseList")
-                        val incomeDates = listItemPaid.map { it.date }.toSet()
-                        val expenseDates = listItemReceived.map { it.date }.toSet()
-                        val allDates = incomeDates union expenseDates
+
+                        val incomeMap = mutableMapOf<String, Double>()
+                        val expenseMap = mutableMapOf<String, Double>()
+
+                        // Gộp các khoản thu nhập theo ngày
+                        listItemPaid.forEach { item ->
+                            val amount = incomeMap.getOrDefault(item.date, 0.0)
+                            incomeMap[item.date] = amount + item.amount
+                        }
+
+                        // Gộp các khoản chi tiêu theo ngày
+                        listItemReceived.forEach { item ->
+                            val amount = expenseMap.getOrDefault(item.date, 0.0)
+                            expenseMap[item.date] = amount + item.amount
+                        }
+
+                        val allDates = incomeMap.keys union expenseMap.keys
 
                         allDates.forEach { date ->
-                            val incomeAmount = listItemPaid.find { it.date == date }?.amount ?: 0.0
-                            val expenseAmount =
-                                listItemReceived.find { it.date == date }?.amount ?: 0.0
+                            val incomeAmount = incomeMap[date] ?: 0.0
+                            val expenseAmount = expenseMap[date] ?: 0.0
                             matchingItems.add(
                                 DateAmount(
                                     date.split("/").first(),
@@ -69,16 +81,18 @@ class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                 )
                             )
                         }
+
                         sumController.setDataListItem(matchingItems)
                         binding.epxList.setControllerAndBuildModels(sumController)
+
                         // Ví dụ: In ra các giá trị trong danh sách matchingItems
                         binding.pieChart
                             .submitData(mutableListOf<BarChartView.DataChart>().apply {
                                 matchingItems.forEach { item ->
                                     add(
                                         BarChartView.DataChart(
-                                            item.incomeAmount, // Random value between 0 and 100
-                                            item.expenseAmount, // Random value between 0 and 100
+                                            item.incomeAmount,
+                                            item.expenseAmount,
                                             item.date
                                         )
                                     )
@@ -88,7 +102,6 @@ class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                 }
             }
         }
-
     }
 
     override fun getBinding(

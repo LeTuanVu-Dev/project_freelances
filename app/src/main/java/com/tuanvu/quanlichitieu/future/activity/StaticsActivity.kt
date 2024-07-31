@@ -1,27 +1,17 @@
 package com.tuanvu.quanlichitieu.future.activity
 
-import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.tuanvu.quanlichitieu.R
 import com.tuanvu.quanlichitieu.base.BaseActivity
 import com.tuanvu.quanlichitieu.databinding.ActivityStatiticsBinding
-import com.tuanvu.quanlichitieu.future.application.MyApplication
-import com.tuanvu.quanlichitieu.future.database.entity.Income
-import com.tuanvu.quanlichitieu.future.database.entity.TableExpense
-import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModel
-import com.tuanvu.quanlichitieu.future.database.viewmodel.ExpenseViewModelFactory
-import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
-import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
-import com.tuanvu.quanlichitieu.future.ultis.BarChartView
-import com.tuanvu.quanlichitieu.future.ultis.Constants
-import kotlin.random.Random
 
 
 class StaticsActivity : BaseActivity<ActivityStatiticsBinding>() {
     override fun getViewBinding(): ActivityStatiticsBinding {
         return ActivityStatiticsBinding.inflate(layoutInflater)
     }
+
     private val DAY_FRAGMENT = 0
     private val MONTH_FRAGMENT = 1
     private val YEAR_FRAGMENT = 2
@@ -43,6 +33,7 @@ class StaticsActivity : BaseActivity<ActivityStatiticsBinding>() {
             }
         })
     }
+
     private fun setTextSelectedMenu(pos: Int) {
         when (pos) {
             0 -> {
@@ -76,6 +67,7 @@ class StaticsActivity : BaseActivity<ActivityStatiticsBinding>() {
             }
         }
     }
+
     private fun setOnClickItemTab(pos: Int) {
         if (currentFragment != pos) {
             currentFragment = pos

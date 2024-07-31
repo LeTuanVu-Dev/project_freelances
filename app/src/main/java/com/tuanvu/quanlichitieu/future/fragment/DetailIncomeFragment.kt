@@ -1,5 +1,6 @@
 package com.tuanvu.quanlichitieu.future.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.tuanvu.quanlichitieu.future.ultis.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 
 class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
     companion object {
@@ -45,7 +47,19 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
         IncomeCategoriesViewModelFactory((requireActivity().application as MyApplication).incomeCategoriesRepository)
     }
     private var listIDCategory = arrayListOf<Long>()
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            binding.inputDate.text = selectedDate
+        }, year, month, day)
+
+        datePickerDialog.show()
+    }
     override fun initView() {
 
 
@@ -81,7 +95,9 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
             }
 
         }
-
+        binding.inputDate.setOnClickListener {
+            showDatePickerDialog()
+        }
 
         binding.ivBack.setOnClickListener {
             handlerBackPressed()

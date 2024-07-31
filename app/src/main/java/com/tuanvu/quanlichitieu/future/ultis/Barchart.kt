@@ -70,14 +70,23 @@ class BarChartView @JvmOverloads constructor(
     }
 
     private var maxValue = 0f
+    private var forValue = 0f
+    private var threeValue = 0f
+    private var secondValue = 0f
     private var minValue = 0f
     private fun initMaxMin(field: MutableList<DataChart>) {
         if (field.isNotEmpty()) {
             val maxIncome = field.maxOf { it.income }
             val maxSpend = field.maxOf { it.spending }
-            maxValue = if (maxIncome > maxSpend) maxIncome else maxSpend
+            maxValue = 200.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
+            secondValue = 40.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
+            threeValue = 80.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
+            forValue = 160.000f//if (maxIncome > maxSpend) maxIncome else maxSpend
         } else {
             maxValue = 0f
+            secondValue = 0f
+            threeValue = 0f
+            forValue = 0f
         }
     }
 
@@ -127,8 +136,14 @@ class BarChartView @JvmOverloads constructor(
 
         val textY1 = (height * bottom)
         val textY2 = (height * 0.05f)
+        val textY3 = (height - (height / 3))
+        val textY4 = (height - (height / 2))
+        val textY5 = (height * 0.3f)
 
         canvas.drawText(minValue.toInt().toString(), textX, textY1, paintText)
+        canvas.drawText(secondValue.toInt().toString(), textX, textY3, paintText)
+        canvas.drawText(threeValue.toInt().toString(), textX, textY4, paintText)
+        canvas.drawText(forValue.toInt().toString(), textX, textY5, paintText)
         canvas.drawText(maxValue.toInt().toString(), textX, textY2, paintText)
     }
     fun dpToPx(dp: Float): Float {

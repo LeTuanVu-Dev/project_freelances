@@ -55,22 +55,28 @@ class StaticYearNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                         val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
                         listItemReceived.addAll(filteredExpenseList)
 
-                        // Lấy danh sách năm từ danh sách income và expense
-                        val incomeYears = listItemPaid.map {
-                            yearFormat.format(dateFormat.parse(it.date)!!)
-                        }.toSet()
-                        val expenseYears = listItemReceived.map {
-                            yearFormat.format(dateFormat.parse(it.date)!!)
-                        }.toSet()
-                        val allYears = incomeYears union expenseYears
+                        // Tạo bản đồ để tổng hợp các khoản thu nhập và chi tiêu theo năm
+                        val incomeMap = mutableMapOf<String, Double>()
+                        val expenseMap = mutableMapOf<String, Double>()
+
+                        // Tổng hợp các khoản thu nhập theo năm
+                        listItemPaid.forEach { item ->
+                            val year = yearFormat.format(dateFormat.parse(item.date)!!)
+                            incomeMap[year] = incomeMap.getOrDefault(year, 0.0) + item.amount
+                        }
+
+                        // Tổng hợp các khoản chi tiêu theo năm
+                        listItemReceived.forEach { item ->
+                            val year = yearFormat.format(dateFormat.parse(item.date)!!)
+                            expenseMap[year] = expenseMap.getOrDefault(year, 0.0) + item.amount
+                        }
+
+                        // Lấy danh sách năm từ cả hai bản đồ
+                        val allYears = incomeMap.keys union expenseMap.keys
 
                         allYears.forEach { year ->
-                            val incomeAmount = listItemPaid
-                                .filter { yearFormat.format(dateFormat.parse(it.date)!!) == year }
-                                .sumByDouble { it.amount.toDouble() }
-                            val expenseAmount = listItemReceived
-                                .filter { yearFormat.format(dateFormat.parse(it.date)!!) == year }
-                                .sumByDouble { it.amount.toDouble() }
+                            val incomeAmount = incomeMap[year] ?: 0.0
+                            val expenseAmount = expenseMap[year] ?: 0.0
                             matchingItems.add(
                                 DateAmount(
                                     year,
@@ -79,6 +85,7 @@ class StaticYearNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                 )
                             )
                         }
+
                         sumController.setDataListItem(matchingItems)
                         binding.epxList.setControllerAndBuildModels(sumController)
                         // Ví dụ: In ra các giá trị trong danh sách matchingItems

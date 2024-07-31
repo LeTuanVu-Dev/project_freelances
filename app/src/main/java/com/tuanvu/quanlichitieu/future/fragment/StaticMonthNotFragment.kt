@@ -73,7 +73,7 @@ class StaticMonthNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
                                 .sumByDouble { it.amount.toDouble() }
                             matchingItems.add(
                                 DateAmount(
-                                    monthYear.split("/").first(),
+                                    monthYear,  // Lưu trữ tháng/năm thay vì chỉ tháng
                                     incomeAmount.toFloat(),
                                     expenseAmount.toFloat()
                                 )

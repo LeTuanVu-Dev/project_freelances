@@ -109,7 +109,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:includeFontPadding="false"
                 android:singleLine="true"
-                android:text="Amount"
+                android:text="Amount (Nghìn)"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 />
@@ -155,13 +155,15 @@
                 />
 
 
-            <EditText
+            <TextView
                 android:id="@+id/input_Date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_input_edt"
                 android:fontFamily="@font/inter_regular"
                 android:hint="Date"
+                android:maxLength="50"
+                android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/_6sdp"
                 android:paddingHorizontal="@dimen/_10sdp"
                 android:textColor="@color/textPrimary"
