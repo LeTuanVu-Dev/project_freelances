@@ -41,16 +41,18 @@ class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
     private val matchingItems = arrayListOf<DateAmount>()
     override fun initView() {
         Log.d("VuLT", "initView:")
+        binding.tvCost.text = "(Nghìn Đồng)"
+        binding.tvTimer.text = "(Ngày)"
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.NOT_RECEIVED }
                 listItemPaid.addAll(filteredIncomeList)
 
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.UNPAID }
                         listItemReceived.addAll(filteredExpenseList)
 
                         val incomeMap = mutableMapOf<String, Double>()

@@ -83,11 +83,11 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
                                 Log.d("VuLT", "initView: "+listIDCategory.indexOf(item.category_id))
                                 binding.inputIdCat.setSelection(listIDCategory.indexOf(item.category_id))
                                 binding.inputAmount.setText(item.amount.toString())
-                                binding.inputDate.setText(item.date)
+                                binding.inputDate.text = item.date
                                 binding.inputDescription.setText(item.description)
                                 isState = item.status == Constants.RECEIVED
-                                binding.ivState.setImageResource(if (item.status == Constants.RECEIVED) R.drawable.toggle_turn_off
-                                else R.drawable.toggle_turn_on)
+                                binding.ivState.setImageResource(if (item.status == Constants.RECEIVED) R.drawable.toggle_turn_on
+                                else R.drawable.toggle_turn_off)
                             }
                         }
                     }
@@ -107,7 +107,7 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
         }
         binding.ivState.setOnClickListener {
             isState = !isState
-            binding.ivState.setImageResource(if (isState) R.drawable.toggle_turn_off
+            binding.ivState.setImageResource(if (!isState) R.drawable.toggle_turn_off
             else R.drawable.toggle_turn_on)
         }
 

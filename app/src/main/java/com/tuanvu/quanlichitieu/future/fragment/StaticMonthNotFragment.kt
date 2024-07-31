@@ -43,16 +43,18 @@ class StaticMonthNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
     val dateFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())  // Định dạng cho ngày dạng: 9/7/2024
     val monthYearFormat = SimpleDateFormat("MM/yyyy", Locale.getDefault())
     override fun initView() {
+        binding.tvCost.text = "(Triệu Đồng)"
+        binding.tvTimer.text = "(Tháng)"
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.UNPAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.NOT_RECEIVED }
                 listItemPaid.addAll(filteredIncomeList)
 
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.NOT_RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.UNPAID }
                         listItemReceived.addAll(filteredExpenseList)
 
                         // Lấy danh sách tháng/năm từ danh sách income và expense

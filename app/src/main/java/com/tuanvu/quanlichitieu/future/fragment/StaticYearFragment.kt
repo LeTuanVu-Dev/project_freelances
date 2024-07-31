@@ -43,16 +43,18 @@ class StaticYearFragment : BaseFragment<FragmentStaticsDayBinding>() {
     val dateFormat = SimpleDateFormat("d/M/yyyy", Locale.getDefault())  // Định dạng cho ngày dạng: 9/7/2024
     val yearFormat = SimpleDateFormat("yyyy", Locale.getDefault())
     override fun initView() {
+        binding.tvCost.text = "(Triệu Đồng)"
+        binding.tvTimer.text = "(Năm)"
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->
             if (lstIncome.isNotEmpty() && listItemPaid.isEmpty()) {
                 // Lọc danh sách income với state = true
-                val filteredIncomeList = lstIncome.filter { it.status == Constants.PAID }
+                val filteredIncomeList = lstIncome.filter { it.status == Constants.RECEIVED }
                 listItemPaid.addAll(filteredIncomeList)
 
                 expenseViewModel.allTableExpense.observe(this) { lstExpense ->
                     if (lstExpense.isNotEmpty() && listItemReceived.isEmpty()) {
                         // Lọc danh sách expense với state = true
-                        val filteredExpenseList = lstExpense.filter { it.status == Constants.RECEIVED }
+                        val filteredExpenseList = lstExpense.filter { it.status == Constants.PAID }
                         listItemReceived.addAll(filteredExpenseList)
 
                         // Tạo bản đồ để tổng hợp các khoản thu nhập và chi tiêu theo năm

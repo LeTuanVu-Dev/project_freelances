@@ -73,12 +73,12 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
                         itemExpense = item
                         binding.inputIdCat.setSelection(item.expense_id.toInt())
                         binding.inputAmount.setText(item.amount.toString())
-                        binding.inputDate.setText(item.date)
+                        binding.inputDate.text = item.date
                         binding.inputDescription.setText(item.description)
                         isState = item.status == Constants.PAID
                         binding.ivState.setImageResource(
-                            if (item.status == Constants.PAID) R.drawable.toggle_turn_off
-                            else R.drawable.toggle_turn_on
+                            if (item.status == Constants.PAID) R.drawable.toggle_turn_on
+                            else R.drawable.toggle_turn_off
                         )
                     }
                 }
@@ -99,8 +99,8 @@ class DetailExpenseFragment : BaseFragment<FragmentDetailExpenseBinding>() {
         binding.ivState.setOnClickListener {
             isState = !isState
             binding.ivState.setImageResource(
-                if (isState) R.drawable.toggle_turn_off
-                else R.drawable.toggle_turn_on
+                if (isState) R.drawable.toggle_turn_on
+                else R.drawable.toggle_turn_off
             )
         }
 

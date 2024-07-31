@@ -23,6 +23,7 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewMo
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
+import com.tuanvu.quanlichitieu.future.service.MyService
 import com.tuanvu.quanlichitieu.future.ultis.AppExtensions.setDailyAlarm
 import com.tuanvu.quanlichitieu.future.ultis.Constants
 
@@ -77,16 +78,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        incomeViewModel.insert(item10)
 //        var item11 = TableExpense(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.RECEIVED)
 //        expenseViewModel.insert(item11)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.SCHEDULE_EXACT_ALARM),
-                111
-            )
-        }
-        setDailyAlarm(this)
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM)
+//            != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(
+//                this,
+//                arrayOf(Manifest.permission.SCHEDULE_EXACT_ALARM),
+//                111
+//            )
+//        }
+//        setDailyAlarm(this)
+//        val serviceIntent = Intent(this, MyService::class.java)
+//        startService(serviceIntent)
     }
 
     //    letuanvu.work@gmail.com
@@ -97,7 +100,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 1f,
             description = "demo1",
             date = "1/1/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item2 = Income(
             user_id = 1,
@@ -105,7 +108,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 2f,
             description = "demo2",
             date = "2/2/2024",
-            status = Constants.UNPAID
+            status = Constants.NOT_RECEIVED
         )
         var item3 = Income(
             user_id = 1,
@@ -113,7 +116,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 3f,
             description = "demo3",
             date = "3/3/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item4 = Income(
             user_id = 1,
@@ -121,7 +124,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 4f,
             description = "demo4",
             date = "4/5/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item5 = Income(
             user_id = 1,
@@ -129,7 +132,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 5f,
             description = "demo5",
             date = "5/4/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item6 = Income(
             user_id = 1,
@@ -137,7 +140,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 16f,
             description = "demo6",
             date = "6/6/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item7 = Income(
             user_id = 1,
@@ -145,7 +148,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 17f,
             description = "demo7",
             date = "7/7/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item8 = Income(
             user_id = 1,
@@ -153,7 +156,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 8f,
             description = "demo8",
             date = "8/8/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
         var item9 = Income(
             user_id = 1,
@@ -161,7 +164,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 9f,
             description = "demo9",
             date = "9/9/2024",
-            status = Constants.PAID
+            status = Constants.RECEIVED
         )
 //        var item10 = Income(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.PAID)
 
@@ -178,7 +181,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 10f,
             description = "demo1",
             date = "1/1/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item2 = TableExpense(
             user_id = 1,
@@ -186,7 +189,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 7f,
             description = "demo2",
             date = "2/2/2024",
-            status = Constants.NOT_RECEIVED
+            status = Constants.UNPAID
         )
         var item3 = TableExpense(
             user_id = 1,
@@ -194,7 +197,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 6f,
             description = "demo3",
             date = "3/3/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item4 = TableExpense(
             user_id = 1,
@@ -202,7 +205,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 2f,
             description = "demo4",
             date = "4/5/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item5 = TableExpense(
             user_id = 1,
@@ -210,7 +213,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 8f,
             description = "demo5",
             date = "5/4/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item6 = TableExpense(
             user_id = 1,
@@ -218,7 +221,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 9f,
             description = "demo6",
             date = "6/6/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item7 = TableExpense(
             user_id = 1,
@@ -226,7 +229,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 1f,
             description = "demo7",
             date = "7/7/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item8 = TableExpense(
             user_id = 1,
@@ -234,7 +237,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 11f,
             description = "demo8",
             date = "8/8/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
         var item9 = TableExpense(
             user_id = 1,
@@ -242,9 +245,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             amount = 9f,
             description = "demo9",
             date = "9/9/2024",
-            status = Constants.RECEIVED
+            status = Constants.PAID
         )
-//        var item10 = TableExpense(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.RECEIVED)
+//        var item10 = TableExpense(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.P)
 
         val list = listOf(
             item1, item2, item3, item4, item5, item6, item7, item8, item9//,item10

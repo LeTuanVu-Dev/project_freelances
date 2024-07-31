@@ -224,7 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/paid"
+                android:text="@string/not_received"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="@color/black"
@@ -241,7 +241,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/unpaid"
+                android:text="@string/received"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="@color/black"
                 android:layout_gravity="center_vertical"

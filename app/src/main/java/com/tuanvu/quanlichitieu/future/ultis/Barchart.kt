@@ -54,14 +54,18 @@ class BarChartView @JvmOverloads constructor(
 
         field.forEachIndexed { index, dataChart ->
             val baseLeft = startOffset + index * (2 * barWidth + pairSpacing)
-            val leftIncome = baseLeft
-            val rightIncome = leftIncome + barWidth
+            val rightIncome = baseLeft + barWidth
             val barHeightIncome = dataChart.income * scaleFactor
-            val incomeRect = RectF(leftIncome, height * bottom - barHeightIncome, rightIncome, height * bottom)
-            val leftSpending = rightIncome
-            val rightSpending = leftSpending + barWidth
+            val incomeRect =
+                RectF(baseLeft, height * bottom - barHeightIncome, rightIncome, height * bottom)
+            val rightSpending = rightIncome + barWidth
             val barHeightSpending = dataChart.spending * scaleFactor
-            val spendingRect = RectF(leftSpending, height * bottom - barHeightSpending, rightSpending, height * bottom)
+            val spendingRect = RectF(
+                rightIncome,
+                height * bottom - barHeightSpending,
+                rightSpending,
+                height * bottom
+            )
 
             listColumn.add(Pair(incomeRect, spendingRect))
         }
@@ -136,6 +140,7 @@ class BarChartView @JvmOverloads constructor(
 
         val textY1 = (height * bottom)
         val textY2 = (height * 0.1f)
+        val textY6 = (height * 0.01f)
         val textY3 = (height - (height / 3))
         val textY4 = (height - (height / 2))
         val textY5 = (height * 0.3f)

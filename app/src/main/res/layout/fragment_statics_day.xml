@@ -10,23 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/_12ssp"
-        android:text="(Đơn vị nghìn đồng)"
+        android:text="(Thống kê)"
         android:textColor="@color/black"
         android:gravity="center_horizontal"
         android:id="@+id/tvTitle"
         android:fontFamily="@font/inter_medium"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <com.tuanvu.quanlichitieu.future.ultis.BarChartView
-        android:id="@+id/pie_chart"
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_200sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        android:text="(nghìn đồng)"
+        android:textColor="@color/black"
+        android:gravity="start"
+        android:id="@+id/tvCost"
+        android:fontFamily="@font/inter_medium"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        android:text="(Ngày)"
+        android:textColor="@color/black"
+        android:gravity="start"
+        android:id="@+id/tvTimer"
+        android:fontFamily="@font/inter_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/pie_chart"
+        />
+    <com.tuanvu.quanlichitieu.future.ultis.BarChartView
+        android:id="@+id/pie_chart"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvTimer"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        app:layout_constraintTop_toBottomOf="@id/tvCost"
+        />
+
 
     <com.airbnb.epoxy.EpoxyRecyclerView
         android:id="@+id/epxList"
