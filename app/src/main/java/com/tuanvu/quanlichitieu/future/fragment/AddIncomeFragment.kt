@@ -1,6 +1,10 @@
 package com.tuanvu.quanlichitieu.future.fragment
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -19,6 +23,7 @@ import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeCategoriesViewMo
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModel
 import com.tuanvu.quanlichitieu.future.database.viewmodel.IncomeViewModelFactory
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
+import com.tuanvu.quanlichitieu.future.service.AlarmReceiver
 import com.tuanvu.quanlichitieu.future.ultis.AppExtensions.showToast
 import com.tuanvu.quanlichitieu.future.ultis.Constants
 import java.util.Calendar
@@ -108,6 +113,8 @@ class AddIncomeFragment :BaseFragment<FragmentAddIncomeBinding>() {
             true
         }
     }
+
+
 
     override fun handlerBackPressed() {
         super.handlerBackPressed()

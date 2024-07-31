@@ -9,6 +9,7 @@ import com.tuanvu.quanlichitieu.future.database.entity.Income
 import com.tuanvu.quanlichitieu.future.database.entity.TableUser
 import com.tuanvu.quanlichitieu.future.database.repositories.IncomeRepository
 import com.tuanvu.quanlichitieu.future.database.repositories.TableUserRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class IncomeViewModel(private val repository: IncomeRepository) : ViewModel() {
@@ -21,6 +22,10 @@ class IncomeViewModel(private val repository: IncomeRepository) : ViewModel() {
 
     fun getIncomeWithUserId(idUser:Long): LiveData<List<Income>> {
         return repository.getIncomeWithIdUser(idUser).asLiveData()
+    }
+
+    fun getIncomeWithUserIdService(idUser:Long): Flow<List<Income>> {
+        return repository.getIncomeWithIdUser(idUser)
     }
     fun insert(tableUser: Income) {
         viewModelScope.launch {

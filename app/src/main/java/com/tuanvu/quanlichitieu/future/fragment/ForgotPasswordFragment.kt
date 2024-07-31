@@ -83,7 +83,7 @@ class ForgotPasswordFragment : BaseFragment<ForgotPasswordFragmentBinding>() {
 
     private fun random() {
         random = Random.nextInt(100000..999999)
-        var mail = SendMail(
+        val mail = SendMail(
             "letuanvu425@gmail.com", "ocrpfmykiskydjcc", binding.inputEmail.text.toString().trim(), "Login Signup app's OTP",
             "Your OTP for account authentication is : $random"
         )

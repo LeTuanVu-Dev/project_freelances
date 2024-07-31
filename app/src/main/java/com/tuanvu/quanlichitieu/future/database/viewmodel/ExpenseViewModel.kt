@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.tuanvu.quanlichitieu.future.database.entity.Income
 import com.tuanvu.quanlichitieu.future.database.entity.TableExpense
 import com.tuanvu.quanlichitieu.future.database.repositories.ExpenseRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class ExpenseViewModel(private val repository: ExpenseRepository) : ViewModel() {
@@ -19,7 +21,9 @@ class ExpenseViewModel(private val repository: ExpenseRepository) : ViewModel() 
     fun getExpenseWithUserId(idUser: Long): LiveData<List<TableExpense>> {
         return repository.getTableExpenseWithIdUser(idUser).asLiveData()
     }
-
+    fun getExpenseWithUserIdService(idUser:Long): Flow<List<TableExpense>> {
+        return repository.getTableExpenseWithIdUser(idUser)
+    }
     fun insert(tableUser: TableExpense) {
         viewModelScope.launch {
             repository.insert(tableUser)

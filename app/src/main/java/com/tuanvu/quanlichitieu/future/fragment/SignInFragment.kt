@@ -69,6 +69,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
             // Thực hiện hành động nếu item tồn tại
             SharedPreferenceUtils.keyUserLogin = item.user_id
             SharedPreferenceUtils.keyUserNameLogin = item.full_name
+            SharedPreferenceUtils.keyEmailLogin = item.email
             startActivity(Intent(requireContext(),MainActivity::class.java))
             requireActivity().finish()
         } else {
