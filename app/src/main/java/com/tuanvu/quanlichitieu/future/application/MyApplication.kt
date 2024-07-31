@@ -34,7 +34,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("VuLT", "onCreate: ")
+        Log.d("Cuong", "onCreate: ")
         instanceApp = this
         instanceSharePreference = SharedPreferencesManager(this)
 

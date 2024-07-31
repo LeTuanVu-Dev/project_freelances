@@ -80,7 +80,7 @@ class DetailIncomeFragment :BaseFragment<FragmentDetailIncomeBinding>() {
                         incomeViewModel.getIncomeWithId(incomeId).observe(this@DetailIncomeFragment) { item ->
                             if (!::itemIncome.isInitialized) {
                                 itemIncome = item
-                                Log.d("VuLT", "initView: "+listIDCategory.indexOf(item.category_id))
+                                Log.d("Cuong", "initView: "+listIDCategory.indexOf(item.category_id))
                                 binding.inputIdCat.setSelection(listIDCategory.indexOf(item.category_id))
                                 binding.inputAmount.setText(item.amount.toString())
                                 binding.inputDate.text = item.date

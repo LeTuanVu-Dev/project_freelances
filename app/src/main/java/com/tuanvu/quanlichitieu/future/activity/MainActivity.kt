@@ -47,7 +47,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun createView() {
-        Log.d("VuLT", "createView: MainActivity")
+        Log.d("Cuong", "createView: MainActivity")
 
         binding.tvNameUser.text = SharedPreferenceUtils.keyUserNameLogin
         binding.ctnSetting.setOnClickListener {
@@ -74,10 +74,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        insertDemoIncomeCategory()
 //        insertDemoIncome()
 //        insertDemoExpense()
-//        var item10 = Income(user_id = 1, category_id = 1, amount = 300f, description = "demo10", date = "1/1/2024", status = Constants.PAID)
-//        incomeViewModel.insert(item10)
-//        var item11 = TableExpense(user_id = 1, category_id = 1, amount = 13f, description = "demo10", date = "11/10/2024", status = Constants.RECEIVED)
-//        expenseViewModel.insert(item11)
+
+        // set alarm
 //        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM)
 //            != PackageManager.PERMISSION_GRANTED
 //        ) {
@@ -88,6 +86,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //            )
 //        }
 //        setDailyAlarm(this)
+            //end set alarm
+        //send now
 //        val serviceIntent = Intent(this, MyService::class.java)
 //        startService(serviceIntent)
     }

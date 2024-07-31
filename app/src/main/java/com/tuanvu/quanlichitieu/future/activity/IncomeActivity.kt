@@ -95,7 +95,7 @@ class IncomeActivity : BaseActivity<ActivityIncomeBinding>() {
             listIncome.add(result)
             incomeViewModel.insert(result)
             incomeController.setDataItem(result)
-            Log.d("VuLT", "createView: $listIncome")
+            Log.d("Cuong", "createView: $listIncome")
             if (listIncome.isEmpty()) {
                 binding.lnEmpty.makeVisible()
                 binding.epxListIncome.makeGone()

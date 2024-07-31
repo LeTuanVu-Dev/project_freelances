@@ -68,7 +68,7 @@ class MyService : Service() {
             val message = "Bạn hãy chú ý các khoản thu chi chưa được thực hiện: \n" +
                     "khoản chưa thu: $incomeNames, \n"+
                     "khoản chưa chi: $expenseNames"
-            Log.d("VuLT", "onStartCommand: message = $message")
+            Log.d("Cuong", "onStartCommand: message = $message")
             setDataSendMail(message)
             withContext(Dispatchers.Main){
 

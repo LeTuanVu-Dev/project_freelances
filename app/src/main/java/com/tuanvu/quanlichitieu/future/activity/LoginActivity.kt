@@ -27,7 +27,7 @@ class LoginActivity : BaseActivity<ActivitySignInUpBinding>() {
     }
 
     override fun createView() {
-        Log.d("VuLT", "createView: LoginActivity"+SharedPreferenceUtils.keyUserLogin)
+        Log.d("Cuong", "createView: LoginActivity"+SharedPreferenceUtils.keyUserLogin)
         if (SharedPreferenceUtils.keyUserLogin < 0) {
             if (MyListUserLogin.getList().isEmpty()) {
                 tableUserViewModel.allTableUser.observe(this) {
@@ -40,7 +40,7 @@ class LoginActivity : BaseActivity<ActivitySignInUpBinding>() {
                 replaceFragment(SignInFragment.instance())
             }
         } else {
-            Log.d("VuLT", "createView: LoginActivity startActivity")
+            Log.d("Cuong", "createView: LoginActivity startActivity")
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }

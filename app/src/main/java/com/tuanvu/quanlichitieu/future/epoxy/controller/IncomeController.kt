@@ -41,7 +41,7 @@ class IncomeController :
     }
 
     override fun buildModels() {
-        Log.d("VuLT", "buildModels: "+ listItem.size)
+        Log.d("Cuong", "buildModels: "+ listItem.size)
         listItem.forEach { item ->
             itemIncome {
                 id(item.hashCode())

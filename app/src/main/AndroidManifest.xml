@@ -64,6 +64,7 @@
             />
         <service android:name=".future.service.MyService" android:exported="false"/>
         <receiver android:name=".future.service.AlarmReceiver" android:exported="true"/>
+
         <activity
             android:name=".future.activity.LoginActivity"
             android:exported="true"

@@ -40,7 +40,7 @@ class StaticDayNotFragment : BaseFragment<FragmentStaticsDayBinding>() {
 
     private val matchingItems = arrayListOf<DateAmount>()
     override fun initView() {
-        Log.d("VuLT", "initView:")
+        Log.d("Cuong", "initView:")
         binding.tvCost.text = "(Nghìn Đồng)"
         binding.tvTimer.text = "(Ngày)"
         incomeViewModel.allTableIncome.observe(this) { lstIncome ->

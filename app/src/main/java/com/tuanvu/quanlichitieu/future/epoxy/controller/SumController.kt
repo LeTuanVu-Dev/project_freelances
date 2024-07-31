@@ -21,7 +21,7 @@ class SumController :
     }
 
     override fun buildModels() {
-        Log.d("VuLT", "buildModels: " + listItem.size)
+        Log.d("Cuong", "buildModels: " + listItem.size)
         listItem.forEach { item ->
             itemSum {
                 id(item.hashCode())

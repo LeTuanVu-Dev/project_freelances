@@ -26,7 +26,7 @@ class SignInFragment : BaseFragment<LoginFragmentBinding>() {
 
     private var isShowPass = false
     override fun initView() {
-        Log.d("VuLT", "createView: SignInFragment")
+        Log.d("Cuong", "createView: SignInFragment")
 
         binding.tvSignUp.setOnClickListener {
             replaceFragment(SignUpFragment.instance())
