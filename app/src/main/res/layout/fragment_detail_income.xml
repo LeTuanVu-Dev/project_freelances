@@ -109,7 +109,7 @@
                 android:fontFamily="@font/inter_medium"
                 android:includeFontPadding="false"
                 android:singleLine="true"
-                android:text="Amount (Nghìn)"
+                android:text="Amount "
                 android:textColor="@color/black"
                 android:textSize="@dimen/_12ssp"
                 />

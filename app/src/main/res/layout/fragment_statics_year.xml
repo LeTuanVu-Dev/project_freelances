@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_12ssp"
+        android:text="(Đơn vị nghìn đồng)"
+        android:textColor="@color/black"
+        android:gravity="center_horizontal"
+        android:id="@+id/tvTitle"
+        android:fontFamily="@font/inter_medium"
+        app:layout_constraintTop_toTopOf="parent"
+        />
     <com.tuanvu.quanlichitieu.future.ultis.BarChartView
         android:id="@+id/pie_chart"
         android:layout_width="match_parent"
@@ -12,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginHorizontal="@dimen/_4sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         />
 
     <LinearLayout
