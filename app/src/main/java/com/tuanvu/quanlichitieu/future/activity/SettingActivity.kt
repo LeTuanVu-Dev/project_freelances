@@ -3,6 +3,7 @@ package com.tuanvu.quanlichitieu.future.activity
 import android.content.Intent
 import com.tuanvu.quanlichitieu.base.BaseActivity
 import com.tuanvu.quanlichitieu.databinding.ActivitySettingBinding
+import com.tuanvu.quanlichitieu.future.fragment.WelcomeFragment
 import com.tuanvu.quanlichitieu.future.preferences.SharedPreferenceUtils
 
 class SettingActivity:BaseActivity<ActivitySettingBinding>() {
@@ -16,6 +17,10 @@ class SettingActivity:BaseActivity<ActivitySettingBinding>() {
         }
         binding.btnLogout.setOnClickListener {
             signOut()
+        }
+
+        binding.btnWelcome.setOnClickListener {
+            addFragment(WelcomeFragment.instance())
         }
 
     }

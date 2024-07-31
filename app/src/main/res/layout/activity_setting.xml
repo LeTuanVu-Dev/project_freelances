@@ -14,7 +14,6 @@
         android:padding="@dimen/_16sdp"
         android:gravity="center">
 
-
         <TextView
             android:text="@string/setting"
             android:layout_width="0dp"
@@ -26,6 +25,7 @@
             android:gravity="center"/>
 
     </LinearLayout>
+
     <ImageView
         android:id="@+id/ic_back"
         android:layout_width="@dimen/_30sdp"
@@ -38,7 +38,9 @@
         android:layout_marginTop="@dimen/_12sdp"
         />
 
+
     <LinearLayout
+        android:id="@+id/lnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -48,11 +50,10 @@
         android:paddingHorizontal="@dimen/_16sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_change_password"
+            android:id="@+id/btn_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_14sdp"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/bg_item_setting">
             <ImageView
@@ -66,7 +67,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/change_password"
+                android:text="Giới thiệu"
                 android:fontFamily="@font/inter_bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_13sdp"
